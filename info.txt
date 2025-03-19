@@ -1,0 +1,56 @@
+firstly we need to gather functional requirement of our project
+1 able to login/signup
+2 fetch/search trains from one station to another
+3 show available seats of a train
+4 book a seat
+5 ticket download/fetch
+
+
+service LLD
+entities
+1) User {
+    String name;
+    String hashedPassword;
+    list<Ticket> ticketsBooked;
+    String userId;
+}
+2) Ticket{
+    String ticketId;
+    String userId; (har ticket kisi na kisi user ke lie hi generate hui hogi to vo us user ki id hai, bina user ke dwara seat book kie ticket generate nhi hogi)
+    String source;
+    String destination;
+    Datetime dateOfTravel;
+    Train train;
+}
+3) Train{
+    String trainId;
+    DateTime departTime;
+    DateTime endTime;
+    list<list<boolean>> seats;
+    (we can represent seats in form of a matrix
+    [0,0,0,1,1,0
+     1,1,1,0,0,0
+     0,0,0,0,1,1])
+
+     Map<String, Time> stationTimes; will store train will reach which station at what time
+
+}
+
+
+now to book a ticket we need to write a business logic
+that business logic is called a SERVICE (basically service is a business logic implementation of our entities)
+1) User booking service-> loginUser(User user)
+                          signup(User user)
+                          fetchBookings(User user)
+                          cancelBooking()
+                          bookTicket(String src, String dest)
+
+2) Train Service -> searchTrain(String src, String dest)
+                    getSeatsAvailable(Train t)
+
+gradle is like a dependency manager like npm in node
+
+
+booking package is our main project
+entities (inside booking) has all the required entities user, ticket, train
+and services (inside booking) has all the services needed
